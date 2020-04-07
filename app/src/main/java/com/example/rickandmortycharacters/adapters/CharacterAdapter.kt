@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.item_character.view.*
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
+
     private val characters by lazy { mutableListOf<Character>()}
 
     fun setCharacters(characters: List<Character>){
@@ -22,6 +23,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_character, parent, false)

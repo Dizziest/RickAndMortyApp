@@ -7,7 +7,10 @@ import retrofit2.http.Query
 
 interface RickAndMortyAPI {
 
-    @GET("character")
+    @GET("character/")
     suspend fun getCharacters(
+        @Query("page") page: String,
+        @Query("name") name: String?
     ): CharactersResponse
+
 }

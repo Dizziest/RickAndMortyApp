@@ -70,4 +70,7 @@ dependencies {
     def koin_version = "2.1.5"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    def material_version = "1.0.0"
+    implementation "com.google.android.material:material:$material_version"
 }
