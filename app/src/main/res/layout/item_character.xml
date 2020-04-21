@@ -10,7 +10,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        android:layout_marginBottom="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,6 +25,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView

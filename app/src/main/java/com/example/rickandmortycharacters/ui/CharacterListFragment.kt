@@ -1,30 +1,40 @@
-package com.example.rickandmortycharacters
+package com.example.rickandmortycharacters.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rickandmortycharacters.viewmodels.CharacterListViewModel
+import com.example.rickandmortycharacters.R
 import com.example.rickandmortycharacters.adapters.CharacterAdapter
+import com.example.rickandmortycharacters.adapters.OnCharacterListener
 import com.example.rickandmortycharacters.models.Character
-import com.example.rickandmortycharacters.viewmodels.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.coroutineScope
+import kotlinx.android.synthetic.main.character_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
 
-    private val adapter: CharacterAdapter by inject()
+class CharacterListFragment : Fragment(), OnCharacterListener {
+    private val adapter = CharacterAdapter(this)
     private val layoutManager: RecyclerView.LayoutManager by inject()
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: CharacterListViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.character_list_fragment, container, false)
+    }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initRecyclerView()
         initSearchView()
         observeCharacters()
@@ -81,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showErrorMessage(message: String){
         Toast.makeText(
-            this,
+            activity,
             "Error : $message",
             Toast.LENGTH_SHORT
         ).show()
@@ -89,5 +99,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCharacters(characters: List<Character>){
         adapter.setCharacters(characters)
+    }
+
+
+    override fun onCharacterClick(position: Int) {
+        val intent = Intent(activity, CharacterActivity::class.java)
+        intent.putExtra("id", adapter.getSelectedCharacter(position)?.id)
+        startActivity(intent)
     }
 }
